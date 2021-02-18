@@ -12,9 +12,10 @@ Check `variables.tf` and `terraform.tfvars.example` for configuration options, s
 
 ## Usage
 1. Put OVH OpenStack secrets in `terraform.tfvars`
-2. Ensure presence of SSH key in `~/.ssh/id-rsa` or change the `key_file_path` tf variable 
-3. `terraform init`
-4. `terraform apply`
-5. Server should be up at the `server_query_port_string` output 
+2. Change configuration via changing default values for variables in `variables.tf`
+3. Ensure presence of SSH key in `~/.ssh/id-rsa` or change the `key_file_path` tf variable 
+4. `terraform init`
+5. `terraform apply`
+6. Server should be up at the `server_query_port_string` output 
 
 ### Using [git-crypt](https://github.com/AGWA/git-crypt) to store state and variables on github. _Just push your secrets to github lmao_
