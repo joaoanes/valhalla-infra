@@ -1,0 +1,6 @@
+openstack_username = "openstack_username"
+openstack_password = "openstack_password"
+openstack_tenant_id = "openstack_tenant_id"
+openstack_tenant_name = "openstack_tenant_name"
+
+server_password = "server_password"
