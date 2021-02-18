@@ -77,5 +77,5 @@ output "ssh_string" {
 }
 
 output "server_query_port_string" {
-  value = "${openstack_compute_instance_v2.server.access_ip_v4}:2457"
+  value = "${var.route53_subdomain}-staging.${var.route53_domain_name}:2457"
 }

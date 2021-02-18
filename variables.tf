@@ -63,3 +63,23 @@ variable "server_world_name" {
   type    = string
   default = "mc"
 }
+
+variable "route53_domain_name" {
+  type    = string
+  default = "hotelbraganca.club"
+}
+
+variable "route53_subdomain" {
+  type    = string
+  default = "valhalla"
+}
+
+variable "aws_region" {
+  type    = string
+  default = "eu-west-1" #eu-west-1 foreva
+}
+
+variable "aws_profile" {
+  type    = string
+  default = "valhalla"
+}
