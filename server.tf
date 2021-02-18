@@ -48,8 +48,23 @@ resource "openstack_compute_instance_v2" "server" {
   }
 
   provisioner "file" {
+    source      = "support/crontab"
+    destination = "/home/ubuntu/crontab"
+  }
+
+  provisioner "file" {
+    content = templatefile("support/backup.sh", {
+      aws_region        = var.aws_region
+      route53_subdomain = var.route53_subdomain
+    })
+    destination = "/home/ubuntu/backup.sh"
+  }
+
+  provisioner "file" {
     content = templatefile("support/provision.sh", {
       steam_user_password = random_password.steam_user.result
+      aws_region          = var.aws_region
+      route53_subdomain   = var.route53_subdomain
     })
     destination = "/home/ubuntu/provision.sh"
   }

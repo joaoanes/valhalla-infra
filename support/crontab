@@ -1,0 +1,1 @@
+0 * * * * bash -c "/home/ubuntu/backup.sh | ts >> /home/ubuntu/backup-result"

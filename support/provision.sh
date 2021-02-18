@@ -53,6 +53,17 @@ chown steam:steam -Rf /home/steam/*
 
 mv /home/ubuntu/valhalla.service /etc/systemd/system
 
+# shellcheck disable=SC2154
+# shellcheck disable=SC2086
+{
+  wget https://s3.${aws_region}.amazonaws.com/${route53_subdomain}-backups-next/valheim.tar.gz
+}
+
+sudo tar -xvzf /home/ubuntu/valheim.tar.gz --directory /
+
+chmod +x /home/ubuntu/backup.sh
+crontab /home/ubuntu/crontab
+
 systemctl daemon-reload
 systemctl start valhalla
 systemctl enable valhalla

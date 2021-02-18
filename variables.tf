@@ -76,7 +76,7 @@ variable "route53_subdomain" {
 
 variable "aws_region" {
   type    = string
-  default = "eu-west-1" #eu-west-1 foreva
+  default = "eu-central-1"
 }
 
 variable "aws_profile" {
