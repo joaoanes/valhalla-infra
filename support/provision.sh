@@ -35,7 +35,8 @@ apt_wait
 
 # we need both i386 and regular libs since the valheim server binaries
 # are on the default architecture, and it also benefits from a speed boost with sdl installed
-apt install steamcmd:i386 libsdl2-2.0-0:i386 libsdl2-2.0-0 -y
+apt install steamcmd:i386 libsdl2-2.0-0:i386 libsdl2-2.0-0 moreutils -y
+
 # shellcheck disable=SC2154
 # shellcheck disable=SC2086
 {
@@ -62,8 +63,12 @@ mv /home/ubuntu/valhalla.service /etc/systemd/system
 sudo tar -xvzf /home/ubuntu/valheim.tar.gz --directory /
 
 chmod +x /home/ubuntu/backup.sh
-crontab /home/ubuntu/crontab
+chown ubuntu /home/ubuntu/backup.sh
+crontab -u ubuntu /home/ubuntu/crontab
 
 systemctl daemon-reload
 systemctl start valhalla
 systemctl enable valhalla
+
+chmod +x /home/ubuntu/elastic.sh
+/home/ubuntu/elastic.sh

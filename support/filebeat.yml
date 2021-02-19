@@ -1,0 +1,10 @@
+output.logstash:
+  hosts: ["localhost:5044"]
+
+path.data: /var/lib/logstash
+pipeline.ordered: auto
+path.logs: /var/log/logstash
+
+filebeat.config.modules:
+  enabled: true
+  path: ${path.config}/modules.d/*.yml

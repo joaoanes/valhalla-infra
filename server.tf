@@ -18,7 +18,7 @@ data "openstack_images_image_v2" "ubuntu" {
 }
 
 resource "openstack_compute_instance_v2" "server" {
-  name        = "test"
+  name        = "valhalla-staging"
   flavor_id   = data.openstack_compute_flavor_v2.s1-8.id
   flavor_name = data.openstack_compute_flavor_v2.s1-8.name
   image_name  = data.openstack_images_image_v2.ubuntu.name
@@ -48,6 +48,39 @@ resource "openstack_compute_instance_v2" "server" {
   }
 
   provisioner "file" {
+    source      = "support/elasticsearch.yml"
+    destination = "/home/ubuntu/elasticsearch.yml"
+  }
+
+  provisioner "file" {
+    source      = "support/filebeat.yml"
+    destination = "/home/ubuntu/filebeat.yml"
+  }
+
+  provisioner "file" {
+    content = templatefile("support/kibana.yml", {
+      instance_address = openstack_compute_instance_v2.server.access_ip_v4
+    })
+    destination = "/home/ubuntu/kibana.yml"
+  }
+
+  provisioner "file" {
+    source      = "support/02-beats-input.conf"
+    destination = "/home/ubuntu/02-beats-input.conf"
+  }
+
+  provisioner "file" {
+    source      = "support/10-syslog-filter.conf"
+    destination = "/home/ubuntu/10-syslog-filter.conf"
+  }
+
+  provisioner "file" {
+    source      = "support/30-elasticsearch-output.conf"
+    destination = "/home/ubuntu/30-elasticsearch-output.conf"
+  }
+
+
+  provisioner "file" {
     source      = "support/crontab"
     destination = "/home/ubuntu/crontab"
   }
@@ -67,6 +100,13 @@ resource "openstack_compute_instance_v2" "server" {
       route53_subdomain   = var.route53_subdomain
     })
     destination = "/home/ubuntu/provision.sh"
+  }
+
+  provisioner "file" {
+    content = templatefile("support/elastic.sh", {
+      instance_address = openstack_compute_instance_v2.server.access_ip_v4
+    })
+    destination = "/home/ubuntu/elastic.sh"
   }
 
   provisioner "file" {

@@ -4,7 +4,7 @@ This repo contains the terraform files that manage `valheim.hotelbraganca.club:2
 
 It uses `terraform-provider-openstack` and the OVH Public Cloud (which it turns out [supports openstack](https://www.openstack.org/marketplace/public-clouds/ovh-group/ovh-public-cloud)) to setup a `s1-8` instance to be a Valheim dedicated server, and changes a route53 record using the `aws` provider with that instance's public IP while configuring an `s3` bucket for backups.
 
-After setting up the instance, we provision it by downloading necessary dependencies and the Valheim server binaries, installing a `systemd` service (so we can use `systemd` to manage the running server), and using `run.sh` to run the server with our configuration (password, server name, etc). We also install a backup script that tars the world files and sends them to the created backup `s3` bucket.
+After setting up the instance, we provision it by downloading necessary dependencies and the Valheim server binaries, installing a `systemd` service (so we can use `systemd` to manage the running server), and using `run.sh` to run the server with our configuration (password, server name, etc). We also install a backup script that tars the world files and sends them to the created backup `s3` bucket. It also deploys the elastic stack, elasticsearch, kibana, logstash and filebeat.
 
 Check `variables.tf` and `terraform.tfvars.example` for configuration options, such as _server name_, _server password_, _OVH Openstack Credentials_ (to source your own ones via the OpenStack RC file check the instructions below), the _key file path_ to access the instance, the _OVH Cloud region_ and a bunch of openstack stuff.
 
@@ -24,6 +24,6 @@ Check `variables.tf` and `terraform.tfvars.example` for configuration options, s
 ## Can I use this?
 Sure, go ahead. You might want to change the default variables in `variables.tf` to suit your settings. If the Route53 setup is unnecessary for you, remove the `route53.tf` file and remove the AWS provider lines in `provider.tf`. I'm guessing you can also use other cloud services with OpenStack APIs, but I haven't tested with anything other than OVH.
 
-If you don't want/need all this terraform automation, the brunt of the work installing Valheim Dedicated Server on Ubuntu 18.04 is done by `support/provision.sh`, which you can use as an example. 
+If you don't want/need all this terraform automation, the brunt of the work installing Valheim Dedicated Server on Ubuntu 18.04 is done by `support/provision.sh`, which you can use as an example. Just remove the line that calls `elastic.sh`, you probably don't need that.
 
 ### Using [git-crypt](https://github.com/AGWA/git-crypt) to store state and variables on github. _Just push your secrets to github lmao_
