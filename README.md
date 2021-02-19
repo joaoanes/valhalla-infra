@@ -15,10 +15,11 @@ Check `variables.tf` and `terraform.tfvars.example` for configuration options, s
 
 ## Usage
 1. Put OVH OpenStack secrets in `terraform.tfvars`
-2. Ensure presence of SSH key in `~/.ssh/id-rsa` or change the `key_file_path` tf variable
-3. `terraform init`
-4. `terraform apply`
-5. Server should be up at the `server_query_port_string` output. Ain't terraform great?
+2. Change configuration via changing default values for variables in `variables.tf`
+3. Ensure presence of SSH key in `~/.ssh/id-rsa` or change the `key_file_path` tf variable
+4. `terraform init`
+5. `terraform apply`
+6. Server should be up at the `server_query_port_string` output. Ain't terraform great?
 
 ## Can I use this?
 Sure, go ahead. You might want to change the default variables in `variables.tf` to suit your settings. If the Route53 setup is unnecessary for you, remove the `route53.tf` file and remove the AWS provider lines in `provider.tf`. I'm guessing you can also use other cloud services with OpenStack APIs, but I haven't tested with anything other than OVH.
