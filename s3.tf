@@ -17,7 +17,7 @@ resource "aws_s3_bucket_policy" "allow-upload-and-download" {
         Condition = {
           IpAddress = {
             "aws:SourceIp" = [
-              openstack_compute_instance_v2.server.access_ip_v4,
+              openstack_compute_instance_v2.valhalla.access_ip_v4,
               "51.91.210.24"
             ]
           }
@@ -55,7 +55,7 @@ resource "aws_s3_bucket_policy" "allow-upload-and-downloadnext" {
         Condition = {
           IpAddress = {
             "aws:SourceIp" = [
-              openstack_compute_instance_v2.server.access_ip_v4,
+              openstack_compute_instance_v2.valhalla.access_ip_v4,
               "51.91.210.24"
             ]
           }

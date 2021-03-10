@@ -20,7 +20,9 @@ variable "openstack_project_domain_name" {
 
 variable "openstack_region" {
   type    = string
-  default = "SBG5" //strasbourg
+  default = "UK1"
+  # this used to be SBG5 until the region literally caught on fire
+  # http://travaux.ovh.net/?do=details&id=49484&
 }
 
 variable "openstack_tenant_id" {

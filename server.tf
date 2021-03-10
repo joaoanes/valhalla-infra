@@ -17,8 +17,8 @@ data "openstack_images_image_v2" "ubuntu" {
   }
 }
 
-resource "openstack_compute_instance_v2" "server" {
-  name        = "test"
+resource "openstack_compute_instance_v2" "valhalla" {
+  name        = "valhalla"
   flavor_id   = data.openstack_compute_flavor_v2.s1-8.id
   flavor_name = data.openstack_compute_flavor_v2.s1-8.name
   image_name  = data.openstack_images_image_v2.ubuntu.name
@@ -37,7 +37,7 @@ resource "openstack_compute_instance_v2" "server" {
   }
 
   connection {
-    host        = openstack_compute_instance_v2.server.access_ip_v4
+    host        = openstack_compute_instance_v2.valhalla.access_ip_v4
     user        = "ubuntu"
     private_key = file("~/.ssh/id_rsa")
   }
@@ -88,9 +88,9 @@ resource "openstack_compute_instance_v2" "server" {
 }
 
 output "ssh_string" {
-  value = "ssh ubuntu@${openstack_compute_instance_v2.server.access_ip_v4} -i ${var.key_file_path}"
+  value = "ssh ubuntu@${openstack_compute_instance_v2.valhalla.access_ip_v4} -i ${var.key_file_path}"
 }
 
 output "server_query_port_string" {
-  value = "${var.route53_subdomain}-staging.${var.route53_domain_name}:2457"
+  value = "${aws_route53_record.production.fqdn}:2457"
 }
