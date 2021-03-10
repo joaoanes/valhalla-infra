@@ -11,7 +11,6 @@ mv /home/ubuntu/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
 chown -Rf elasticsearch:elasticsearch /usr/share/elasticsearch
 chown -Rf elasticsearch:elasticsearch /etc/elasticsearch
 
-systemctl start elasticsearch
 systemctl enable elasticsearch
 
 apt install kibana
@@ -19,7 +18,6 @@ apt install kibana
 mv /home/ubuntu/kibana.yml /etc/kibana/kibana.yml
 chown root:kibana /etc/kibana/kibana.yml
 
-systemctl start kibana
 systemctl enable kibana
 
 apt install logstash
@@ -28,7 +26,6 @@ chown -Rf root:root /etc/logstash/conf.d/
 
 sudo -u logstash /usr/share/logstash/bin/logstash --path.settings /etc/logstash -t
 
-systemctl start logstash
 systemctl enable logstash
 
 apt install filebeat
@@ -44,5 +41,9 @@ filebeat setup --template -E output.logstash.enabled=false -E 'output.elasticsea
     filebeat setup -e -E output.logstash.enabled=false -E output.elasticsearch.hosts=['localhost:9200'] -E setup.kibana.host=${instance_address}:5601
 }
 
-systemctl start filebeat
 systemctl enable filebeat
+
+systemctl start elasticsearch
+systemctl start logstash
+systemctl start kibana
+systemctl start filebeat
